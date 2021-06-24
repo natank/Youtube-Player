@@ -28,7 +28,7 @@ export const getSongs = async (filter = 'Suzzi Quatro') => {
 					},
 				})
 				.then(response => {
-					resolve(response.data);
+					resolve(response.data.items[0]);
 				});
 		});
 	});

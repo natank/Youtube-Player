@@ -11,10 +11,9 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export const SearchForm = () => {
+export const SearchForm = props => {
 	const classes = useStyles();
-	const [filter, setFilter] = useState('');
-	const dispatch = useDispatch();
+	const [filter, setFilter] = useState(props.filter);
 
 	return (
 		<SearchBar
@@ -23,9 +22,7 @@ export const SearchForm = () => {
 				setFilter(e);
 			}}
 			value={filter}
-			onRequestSearch={() => {
-				dispatch(fetchSongs(filter));
-			}}
+			onRequestSearch={() => props.setFilter(filter)}
 			placeholder='Type something ...'
 			autoFocus
 		/>

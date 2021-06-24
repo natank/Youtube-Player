@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { songSelected } from './songsSlice';
 import { Button, Container, Typography, Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { parseISO, formatDistanceToNow } from 'date-fns';
-
 
 const useStyles = makeStyles({
 	root: {
@@ -40,13 +39,15 @@ const useStyles = makeStyles({
 	},
 });
 
-export function SongItem({ song }) {
+export function SongItem({ song, songSelected }) {
 	const classes = useStyles();
-	const { snippet, statistics } = 
+	const { snippet, statistics } = song;
 	const timeAgoString = timeAgo(snippet.publishedAt);
-  const songClicked = ()=>{
-
-  }
+	const history = useHistory();
+	const songClicked = () => {
+		songSelected(song.id);
+		history.push('/song');
+	};
 	return (
 		<Container className={classes.root} onClick={songClicked}>
 			<Card className={classes.song} scrolling='no'>

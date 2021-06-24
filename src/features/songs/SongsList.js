@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SongItem } from './SongItem';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography } from '@material-ui/core';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchSongs, selectAllSongs } from './songsSlice';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	root: {},
 	loader: {},
 });
 
-export function SongsList() {
+export function SongsList({
+	songs,
+	songsStatus,
+	songSelected,
+	setSongsStatus,
+	selectedSong,
+	setSelectedSong,
+	error,
+}) {
 	const classes = useStyles();
-	const dispatch = useDispatch();
-	const songs = useSelector(selectAllSongs);
-	const songsStatus = useSelector(state => state.songs.status);
-	const error = useSelector(state => state.songs.error);
-	useEffect(() => {
-		if (songsStatus === 'idle') {
-			dispatch(fetchSongs());
-		}
-	}, [songsStatus, dispatch]);
 
 	let content;
 
@@ -28,7 +25,7 @@ export function SongsList() {
 		content = <div className='loader'>Loading...</div>;
 	} else if (songsStatus === 'succeeded') {
 		content = songs.map(song => {
-			return <SongItem song={song} key={song.items[0].id} />;
+			return <SongItem song={song} key={song.id} songSelected={songSelected} />;
 		});
 	} else if (songsStatus === 'failed') {
 		content = <div>{error}</div>;
