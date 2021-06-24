@@ -1,25 +1,33 @@
-import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
+import { useDispatch } from 'react-redux';
+import SearchBar from 'material-ui-search-bar';
+import { fetchSongs } from '../features/songs';
+const useStyles = makeStyles(theme => ({
+	root: {
+		width: '50%',
+		margin: 'auto',
+		marginBottom: '1rem',
+	},
 }));
 
-export const  SearchForm = ()=> {
-  const classes = useStyles();
-  return <div>
-    
-    <TextField
-      id="standard-helperText"
-      label="Type movie name"
-      helperText="movie"
-    />
-  </div>
-}
+export const SearchForm = () => {
+	const classes = useStyles();
+	const [filter, setFilter] = useState('');
+	const dispatch = useDispatch();
 
+	return (
+		<SearchBar
+			className={classes.root}
+			onChange={e => {
+				setFilter(e);
+			}}
+			value={filter}
+			onRequestSearch={() => {
+				dispatch(fetchSongs(filter));
+			}}
+			placeholder='Type something ...'
+			autoFocus
+		/>
+	);
+};
