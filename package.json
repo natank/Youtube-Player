@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "date-fns": "^2.22.1",
+    "dotenv": "^10.0.0",
     "google-auth-library": "^7.1.0",
     "googleapis": "^74.2.0",
     "material-ui-search-bar": "^1.0.0",

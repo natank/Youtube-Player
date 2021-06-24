@@ -1,6 +1,6 @@
 import { songs } from './songsData';
 import axios from 'axios';
-const KEY = 'AIzaSyCPFR-b3vldvPYvj2qZdcM_W44PkHZ8dcc';
+const KEY = process.env.REACT_APP_API_KEY;
 
 const youtube = axios.create({
 	baseURL: 'https://www.googleapis.com/youtube/v3/',
